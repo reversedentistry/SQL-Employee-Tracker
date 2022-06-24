@@ -1,4 +1,10 @@
 const inquirer = require("inquirer"); 
+const db = require("mysql2"); 
+const connection = mysql.createConnection({
+    host: "localhost", 
+    user: "root", 
+    database: "management_db"
+}); 
 
 inquirer
     .prompt([
@@ -12,6 +18,7 @@ inquirer
     .then((response) => {
         switch (response.cmsChoice) {
             case "View all employees":
+                // Add mysql2 functions here
                 break; 
             case "Add employee": 
                 break; 
