@@ -1,11 +1,5 @@
 const inquirer = require("inquirer"); 
-const db = require("mysql2"); 
-const connection = mysql.createConnection({
-    host: "localhost", 
-    user: "root", 
-    database: "management_db"
-}); 
-const cTable = require("console.table"); 
+const cms = require("./cms.js"); 
 
 inquirer
     .prompt([
@@ -39,39 +33,4 @@ inquirer
         }
     }); 
 
-    const viewEmployees = connection.query("SELECT * FROM employees", (err, result) => {
-        if (err) {
-            console.log(err); 
-        }
-        console.table(result); 
-    });
-
-    const updateRole = () => {
-        connection.query("SELECT first_name, last_name FROM employees", (err, result) => {
-            if (err) {
-                console.log(err); 
-            }
-        let employees = result
-        })
-        connection.query("UPDATE employees SET  WHERE  ")
-    }; 
-
-    const addEmployee = connection.query()
-
-    const viewRoles = connection.query("SELECT * FROM roles", (err, result) => {
-        if (err) {
-            console.log(err); 
-        }
-        console.table(result); 
-    })
-
-    const addRole = connection.query()
-
-    const viewDepts = connection.query("SELECT * FROM departments", (err, result) => {
-        if (err) {
-            console.log(err); 
-        }
-        console.table(result);
-    })
-
-    const addDept = connection.query()
+ 
