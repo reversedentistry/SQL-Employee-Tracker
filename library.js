@@ -5,6 +5,7 @@ const connection = mysql.createConnection({
     user: "root", 
     database: "management_db"
 }); 
+const cTable = require("console.table"); 
 
 inquirer
     .prompt([
@@ -32,7 +33,19 @@ inquirer
                 break; 
             case "Add department": 
                 break; 
-            case "Quit": 
-                break;
+            default: 
+                break;  
+                
         }
-    })
+    }); 
+
+    const viewEmployees = connection.query("SELECT * FROM employee", (err, result) => {
+        if (err) {
+            console.log(err); 
+        }
+        console.table(result); 
+    });
+
+    const updateRole = connection.query(
+        "UPDATE employee SET  WHERE  "
+    )
