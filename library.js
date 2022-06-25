@@ -39,13 +39,39 @@ inquirer
         }
     }); 
 
-    const viewEmployees = connection.query("SELECT * FROM employee", (err, result) => {
+    const viewEmployees = connection.query("SELECT * FROM employees", (err, result) => {
         if (err) {
             console.log(err); 
         }
         console.table(result); 
     });
 
-    const updateRole = connection.query(
-        "UPDATE employee SET  WHERE  "
-    )
+    const updateRole = () => {
+        connection.query("SELECT first_name, last_name FROM employees", (err, result) => {
+            if (err) {
+                console.log(err); 
+            }
+        let employees = result
+        })
+        connection.query("UPDATE employees SET  WHERE  ")
+    }; 
+
+    const addEmployee = connection.query()
+
+    const viewRoles = connection.query("SELECT * FROM roles", (err, result) => {
+        if (err) {
+            console.log(err); 
+        }
+        console.table(result); 
+    })
+
+    const addRole = connection.query()
+
+    const viewDepts = connection.query("SELECT * FROM departments", (err, result) => {
+        if (err) {
+            console.log(err); 
+        }
+        console.table(result);
+    })
+
+    const addDept = connection.query()
