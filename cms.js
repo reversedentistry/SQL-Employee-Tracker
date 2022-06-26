@@ -81,7 +81,7 @@ const addEmployee = () => {
     ])
         .then(response => {
             let params = [response.firstName, response.lastName];
-            connection.query("SELECT title, role_id FROM roles", (err, result) => {
+            connection.query("SELECT title, id FROM roles", (err, result) => {
                 if (err) {
                     console.log(err);
                 }
@@ -95,7 +95,7 @@ const addEmployee = () => {
                     }
                 ])
                     .then(response => {
-                        let role = (response.role);
+                        let role = response.role;
                         params.push(role);
                         connection.query("SELECT first_name, last_name, id WHERE manager_id = null", (err, result) => {
                             if (err) {
@@ -112,7 +112,7 @@ const addEmployee = () => {
                                 }
                             ])
                                 .then(response => {
-                                    let manager = (response.manager);
+                                    let manager = response.manager;
                                     params.push(manager);
                                     connection.query("INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", params, (err) => {
                                         if (err) {
@@ -128,22 +128,64 @@ const addEmployee = () => {
 
 
             })
-        })};
+        })
+};
 
-    const viewRoles = connection.query("SELECT * FROM roles", (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        console.table(result);
-    })
+const viewRoles = connection.query("SELECT * FROM roles", (err, result) => {
+    if (err) {
+        console.log(err);
+    }
+    console.table(result);
+})
 
-    const addRole = connection.query()
+const addRole = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "newRole",
+            message: "Enter the name of the role you'd like to add."
+        },
+        {
+            type: "number",
+            name: "newSalary",
+            message: "Enter the salary for this new role."
+        },
 
-    const viewDepts = connection.query("SELECT * FROM departments", (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        console.table(result);
-    }); 
+    ])
+        .then(response => {
+            let params = [response.newRole, response.newSalary];
+            connection.query("SELECT * FROM departments"), (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                let depts = result.map(({ id, name }) => ({name: name, value: id})); 
+                inquirer.prompt([
+                    {
+                        type: "list", 
+                        name: "dept", 
+                        message: "Choose which department the new role is a part of.",
+                        choices: depts
+                    }
+                ])
+                .then(response => {
+                    let dept = response.dept; 
+                    params.push(dept); 
+                    connection.query("INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)", params, (err) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        console.log("Role added");
+                        return viewRoles();
+                    })
+                })
+        }})
+}
 
-    const addDept = connection.query()
+const viewDepts = connection.query("SELECT * FROM departments", (err, result) => {
+    if (err) {
+        console.log(err);
+    }
+    console.table(result);
+});
+
+const addDept = connection.query()
