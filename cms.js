@@ -7,12 +7,13 @@ const connection = mysql.createConnection({
 });
 const cTable = require("console.table");
 
-const viewEmployees = connection.query("SELECT * FROM employees", (err, result) => {
+const viewEmployees = () => {
+    connection.query("SELECT * FROM employees", (err, result) => {
     if (err) {
         console.log(err);
     }
     console.table(result);
-});
+})};
 
 const updateRole = () => {
     connection.query("SELECT first_name, last_name, id FROM employees", (err, result) => {
@@ -131,12 +132,13 @@ const addEmployee = () => {
         })
 };
 
-const viewRoles = connection.query("SELECT * FROM roles", (err, result) => {
+const viewRoles = () => {
+    connection.query("SELECT * FROM roles", (err, result) => {
     if (err) {
         console.log(err);
     }
     console.table(result);
-})
+})};
 
 const addRole = () => {
     inquirer.prompt([
@@ -181,12 +183,13 @@ const addRole = () => {
         }})
 }
 
-const viewDepts = connection.query("SELECT * FROM departments", (err, result) => {
+const viewDepts = () => {
+    connection.query("SELECT * FROM departments", (err, result) => {
     if (err) {
         console.log(err);
     }
     console.table(result);
-});
+})};
 
 const addDept = () => {
     inquirer.prompt([
@@ -207,3 +210,13 @@ const addDept = () => {
         }) 
     })
 }
+
+module.exports = {
+    viewDepts,
+    viewRoles, 
+    viewEmployees, 
+    addDept, 
+    addRole,
+    addEmployee,
+    updateRole
+}; 
