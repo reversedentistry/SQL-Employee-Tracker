@@ -37,10 +37,12 @@ const startInquirer = () => {
             //     break; 
             // case "View all departments": 
             //     break; 
-            // case "Add department": 
-            //     break; 
-            default: 
-                break;  
+            case "Add department":
+                addDept();  
+                break; 
+            default:
+                process.exit();  
+                
                 
         }
     })}; 
@@ -177,6 +179,7 @@ const startInquirer = () => {
             console.log(err);
         }
         console.table(result);
+        startInquirer(); 
     })};
     
     const addRole = () => {
@@ -228,6 +231,7 @@ const startInquirer = () => {
             console.log(err);
         }
         console.table(result);
+        startInquirer(); 
     })};
     
     const addDept = () => {
