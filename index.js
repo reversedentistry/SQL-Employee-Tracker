@@ -1,14 +1,5 @@
 const inquirer = require("inquirer"); 
-// import inquirer from "inquirer";
-// const cms = require("./cms.js"); 
-// const index = require("./index.js");
-const mysql = require("mysql2");
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Joker@0806",
-    database: "management_db"
-});
+const connection = require("./config/connection.js"); 
 const cTable = require("console.table");
 
 const startInquirer = () => {
@@ -257,8 +248,7 @@ const startInquirer = () => {
         })
     }
 
-    // module.exports = {startInquirer}; 
-    
+     
     startInquirer(); 
    
 
