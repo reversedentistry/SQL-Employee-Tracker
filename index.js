@@ -31,12 +31,15 @@ const startInquirer = () => {
             case "Update employee role": 
                 updateRole(); 
                 break; 
-            // case "View all roles": 
-            //     break; 
-            // case "Add role": 
-            //     break; 
-            // case "View all departments": 
-            //     break; 
+            case "View all roles": 
+                viewRoles();
+                break; 
+            case "Add role": 
+                addRole();
+                break; 
+            case "View all departments": 
+                viewDepts();
+                break; 
             case "Add department":
                 addDept();  
                 break; 
