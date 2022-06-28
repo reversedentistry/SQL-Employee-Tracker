@@ -58,7 +58,6 @@ const updateRole = () => {
             console.log(err);
         }
         let employees = result.map(({ first_name, last_name, id }) => ({ name: `${first_name} ${last_name}`, value: id }));
-        console.log(employees);
         inquirer.prompt([
             {
                 type: "list",
@@ -88,14 +87,34 @@ const updateRole = () => {
                         .then(response => {
                             let roleChoice = (response.roleUpdate);
                             params.unshift(roleChoice);
-                            connection.query("UPDATE employees SET role_id = ? WHERE id = ?", params, (err) => {
+                            connection.query("SELECT first_name, last_name, id FROM employees WHERE manager_id IS NULL", (err, result) => {
                                 if (err) {
                                     console.log(err);
                                 }
-                                console.log("Employee updated!");
-                                return viewEmployees();
+                                let managers = result.map(({ first_name, last_name, id }) => ({ name: `${first_name} ${last_name}`, value: id }));
+                                managers.push({ name: "No manager", value: null });
+                                inquirer.prompt([
+                                    {
+                                        type: "list",
+                                        name: "newManager",
+                                        message: "Choose the employee's new manager, if any.",
+                                        choices: managers
+                                    }
+                                ])
+                                    .then(response => {
+                                        let newManager = (response.newManager);
+                                        params.unshift(newManager);
+                                        connection.query("UPDATE employees SET manager_id = ?, role_id = ? WHERE id = ?", params, (err) => {
+                                            if (err) {
+                                                console.log(err);
+                                            }
+                                            console.log("Employee updated!");
+                                            return viewEmployees();
+                                        })
+                                    })
                             })
                         })
+
 
                 })
 
