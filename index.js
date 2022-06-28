@@ -68,14 +68,12 @@ const updateRole = () => {
         ])
             .then(response => {
                 let employeeChoice = response.employeeUpdate;
-                console.log(employeeChoice);
                 let params = [employeeChoice];
                 connection.query("SELECT title, id FROM roles", (err, result) => {
                     if (err) {
                         console.log(err);
                     }
                     let roles = result.map(({ title, id }) => ({ name: title, value: id }));
-                    console.log(roles);
                     inquirer.prompt([
                         {
                             type: "list",
